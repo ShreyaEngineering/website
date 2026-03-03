@@ -1,0 +1,39 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap");
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --bg-base: #050816;
+  --bg-elev: #0d1430;
+  --surface: rgba(255, 255, 255, 0.06);
+  --surface-strong: rgba(255, 255, 255, 0.12);
+  --border-soft: rgba(255, 255, 255, 0.14);
+  --text-main: #f8fbff;
+  --text-muted: #9ea9c7;
+  --accent: #2dd4bf;
+  --accent-2: #3b82f6;
+}
+
+body {
+  font-family: "Space Grotesk", "Segoe UI Variable", sans-serif;
+  background:
+    radial-gradient(circle at 10% -10%, rgba(56, 189, 248, 0.2), transparent 30%),
+    radial-gradient(circle at 85% 10%, rgba(59, 130, 246, 0.24), transparent 30%),
+    var(--bg-base);
+  color: var(--text-main);
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Sora", "Avenir Next", sans-serif;
+  letter-spacing: -0.02em;
+}
+
+section[id] {
+  scroll-margin-top: 96px;
+}
