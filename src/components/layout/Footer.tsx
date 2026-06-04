@@ -5,7 +5,6 @@ import {
   FiMail,
   FiClock,
   FiMessageCircle,
-  FiTool,
   FiArrowUp,
 } from "react-icons/fi";
 
