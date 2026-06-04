@@ -1,7 +1,5 @@
 @import "tailwindcss";
-
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
-
 
 * { box-sizing: border-box; }
 body { font-family: 'Sora', sans-serif; background: #0f0f0f; color: #f0ece4; }
@@ -20,12 +18,10 @@ body { font-family: 'Sora', sans-serif; background: #0f0f0f; color: #f0ece4; }
     background: white !important;
   }
 
-  /* Hide everything inside root */
   #root > * {
     display: none !important;
   }
 
-  /* Show only the print wrapper */
   #root > #print-root {
     display: block !important;
     width: 80mm !important;
@@ -46,4 +42,3 @@ body { font-family: 'Sora', sans-serif; background: #0f0f0f; color: #f0ece4; }
     break-inside: avoid;
   }
 }
-
