@@ -1,21 +1,49 @@
 @import "tailwindcss";
 
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+
 * { box-sizing: border-box; }
 body { font-family: 'Sora', sans-serif; background: #0f0f0f; color: #f0ece4; }
 .mono { font-family: 'JetBrains Mono', monospace; }
 
 @media print {
-  body * { visibility: hidden !important; }
-  #thermal-receipt, #thermal-receipt * { visibility: visible !important; }
-  #thermal-receipt {
-    position: fixed !important;
-    left: 0; top: 0;
+  @page {
+    size: 80mm auto;
+    margin: 0;
+  }
+
+  html, body {
     width: 80mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+  }
+
+  /* Hide everything inside root */
+  #root > * {
+    display: none !important;
+  }
+
+  /* Show only the print wrapper */
+  #root > #print-root {
+    display: block !important;
+    width: 80mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #thermal-receipt {
+    width: 80mm !important;
+    max-width: 80mm !important;
     margin: 0 !important;
     padding: 4mm !important;
     font-size: 10px !important;
     background: white !important;
     color: black !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    break-inside: avoid;
   }
 }
 
