@@ -2,6 +2,9 @@ import { useState, useRef, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
+import { useNavigate } from "react-router-dom";
+import { logoutApi } from "../../api/authApi";
+import { useAuth } from "../context/AuthContext";
 
 interface LineItem { id: number; name: string; qty: number; rate: number }
 interface InvoiceData {
@@ -19,6 +22,8 @@ interface InvoiceData {
   sgstPct: number
   note: string
 }
+
+
 
 const now = () => new Date().toLocaleString('en-IN', {
   day: '2-digit', month: 'short', year: 'numeric',
@@ -67,6 +72,21 @@ const defaultData = (): InvoiceData => ({
 })
 
 export default function Invoice() {
+
+
+
+  const navigate = useNavigate();
+
+const { checkAuth } = useAuth();
+
+const handleLogout = async () => {
+  await logoutApi();
+
+  await checkAuth();
+
+  navigate("/login");
+};
+
   const receiptRef = useRef<HTMLDivElement>(null)
   const [data, setData] = useState<InvoiceData>(defaultData)
   const [saving, setSaving] = useState(false)
@@ -207,15 +227,8 @@ ${data.contact}`
 
       <div className="min-h-screen bg-[#0f0f0f] text-[#f0ece4]">
         {/* Header */}
-        <header className="border-b border-[#2a2a2a] px-6 py-4 flex items-center justify-between">
-          <div>
-            <h1 className="mono text-lg font-semibold text-amber-400 tracking-wider">SHREYA ENGINEERING WORKS</h1>
-            <p className="text-xs text-[#666] mt-0.5">Invoice Generator</p>
-          </div>
-          <button onClick={newInvoice}
-            className="mono text-xs px-4 py-2 border border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-black transition-all rounded">
-            + NEW INVOICE
-          </button>
+       <header className="border-b border-amber-500 px-6 py-8 flex items-center justify-between bg-gradient-to-r from-gray-950 via-slate-800 to-yellow-600">
+         
         </header>
 
         <div className="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8">
@@ -367,6 +380,10 @@ ${data.contact}`
               <button onClick={sendReceiptWhatsApp}
                 className="w-full mono text-xs py-2.5 bg-green-600 text-white hover:bg-green-500 transition-all rounded">
                 📱 SEND ON WHATSAPP
+              </button>
+               <button onClick={handleLogout}
+                className="w-full mono text-xs py-2.5 bg-red-600 text-white hover:bg-green-500 transition-all rounded">
+                Logout
               </button>
             </div>
           </div>

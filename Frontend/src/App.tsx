@@ -12,6 +12,9 @@ import Footer from "./components/layout/Footer";
 import BackgroundEffects from "./components/BackgroundEffects";
 import Invoice from "./components/Invoice";
 
+import Login from "./components/pages/Login";
+import ProtectedRoute from "./components/ProtectedRoute";
+
 function ScrollToHash() {
   const location = useLocation();
 
@@ -62,7 +65,17 @@ const App = () => {
       <main className="relative z-10">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/invoice" element={<Invoice />} />
+
+          <Route path="/login" element={<Login />} />
+
+          <Route
+            path="/invoice"
+            element={
+              <ProtectedRoute>
+                <Invoice />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </main>
 

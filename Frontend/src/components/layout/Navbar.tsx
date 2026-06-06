@@ -36,6 +36,7 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
+       
         <Link
           to="/"
           className="text-xl font-bold tracking-wide text-amber-400"
@@ -58,9 +59,9 @@ const Navbar = () => {
 
           <Link
             to="/invoice"
-            className="text-sm text-slate-200/90 hover:text-cyan-300 transition-colors duration-300"
+            className="text-sm  text-cyan-300 hover:text-red-600 transition-colors duration-300"
           >
-            Invoice
+            Admin Login
           </Link>
 
           <HashLink
@@ -112,9 +113,9 @@ const Navbar = () => {
               <Link
                 to="/invoice"
                 onClick={handleCloseMenu}
-                className="block text-slate-200/90 hover:text-cyan-300 transition-colors"
+                className="block text-cyan-300 hover:text-red-600 transition-colors"
               >
-                Invoice
+                Admin Login
               </Link>
 
               <HashLink

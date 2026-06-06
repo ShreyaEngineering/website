@@ -27,7 +27,7 @@ const teamMembers: TeamMember[] = [
     experience: "6+ Years",
     specialty:
       "Precision Machining, Plant Solutions & Industrial Parts Repair",
-    image: "../../public/images/proprietor.png",
+    image: "./images/proprietor.png",
   },
   {
     name: "Kailash Mistri",
@@ -38,7 +38,7 @@ const teamMembers: TeamMember[] = [
     experience: "40+ Years",
     specialty:
       "Workshop Operations, Fabrication & Industrial Maintenance",
-    image: "../../public//images/manager.png",
+    image: "./images/manager.png",
   },
 ];
 
