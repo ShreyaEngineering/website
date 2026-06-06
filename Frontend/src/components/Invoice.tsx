@@ -111,19 +111,7 @@ const handleLogout = async () => {
   const grandTotal = Math.round(gross)
   const fmt = (n: number) => n.toLocaleString('en-IN', { minimumFractionDigits: 2 })
 
-  // New invoice: keep biz details, reset customer/items, get next number
-  const newInvoice = () => {
-    setData(d => ({
-      ...d,
-      invoiceNo: getNextInvoiceNo(),
-      dateTime: now(),
-      customerName: '',
-      customerMobile: '',
-      items: [{ id: Date.now(), name: '', qty: 1, rate: 0 }],
-      cgstPct: 0,
-      sgstPct: 0,
-    }))
-  }
+  
 
   const refreshDateTime = () => set('dateTime', now())
 
