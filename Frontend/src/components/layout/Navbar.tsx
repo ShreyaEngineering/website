@@ -99,6 +99,14 @@ const Navbar = () => {
                 Home
               </Link>
 
+              <Link
+                to="/invoice"
+                onClick={handleCloseMenu}
+                className="block text-cyan-300 hover:text-red-600 transition-colors"
+              >
+                Invoice
+              </Link>
+
               <button
                 onClick={handleLogout}
                 className="px-5 py-2 rounded-full bg-red-600 text-white font-semibold text-sm hover:bg-red-700 transition-all"
