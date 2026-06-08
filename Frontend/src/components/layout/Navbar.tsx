@@ -109,9 +109,10 @@ const Navbar = () => {
 
               <button
                 onClick={handleLogout}
-                className="px-5 py-2 rounded-full bg-red-600 text-white font-semibold text-sm hover:bg-red-700 transition-all"
+                className="group relative inline-flex items-center text-red-400 hover:text-red-300 font-medium transition-colors duration-300"
               >
                 Logout
+                <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-red-400 transition-all duration-300 group-hover:w-full" />
               </button>
             </>
           )}

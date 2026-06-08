@@ -1,6 +1,6 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import { useEffect } from "react";
-import type{ ReactNode } from "react";
+import { useState, useEffect } from "react";
+import type { ReactNode } from "react";
 
 import Navbar from "./components/layout/Navbar";
 import Hero from "./components/pages/Home";
@@ -15,6 +15,7 @@ import Invoice from "./components/pages/Invoice";
 import Login from "./components/pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuth } from "./context/AuthContext";
+import IntroScreen from "./components/IntroScreen";
 
 function AuthGate({ children }: { children: ReactNode }) {
   const { loading } = useAuth();
@@ -75,32 +76,43 @@ function HomePage() {
 }
 
 const App = () => {
+
+  const [entered, setEntered] = useState(false);
+
+  if (!entered) {
+    return (
+      <IntroScreen
+        onFinish={() => setEntered(true)}
+      />
+    );
+  }
+
   return (
     <div className="relative min-h-screen overflow-x-hidden text-white">
       <BackgroundEffects />
-        <AuthGate> 
-      <Navbar />
+      <AuthGate>
+        <Navbar />
 
-      <ScrollToHash />
+        <ScrollToHash />
 
-      <main className="relative z-10">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
+        <main className="relative z-10">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
 
-          <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login />} />
 
-          <Route
-            path="/invoice"
-            element={
-              <ProtectedRoute>
-                <Invoice />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </main>
+            <Route
+              path="/invoice"
+              element={
+                <ProtectedRoute>
+                  <Invoice />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </main>
 
-      <Footer />
+        <Footer />
       </AuthGate>
     </div>
   );

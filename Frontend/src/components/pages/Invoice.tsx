@@ -2,10 +2,6 @@ import { useState, useRef, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
-import { useNavigate } from "react-router-dom";
-import { logoutApi } from "../../../api/authApi";
-import { useAuth } from "../../context/AuthContext";
-
 
 interface LineItem { id: number; name: string; qty: number; rate: number }
 interface InvoiceData {
@@ -73,16 +69,6 @@ const defaultData = (): InvoiceData => ({
 })
 
 export default function Invoice() {
-
-
-  const navigate = useNavigate();
-  const { checkAuth } = useAuth();
-
-  const handleLogout = async () => {
-    await logoutApi();
-    await checkAuth();
-    navigate("/login");
-  };
 
   const receiptRef = useRef<HTMLDivElement>(null)
   const [data, setData] = useState<InvoiceData>(defaultData)
@@ -366,10 +352,7 @@ ${data.contact}`
                 className="w-full mono text-xs py-2.5 bg-green-600 text-white hover:bg-green-500 transition-all rounded">
                 📱 SEND ON WHATSAPP
               </button>
-              <button onClick={handleLogout}
-                className="w-full mono text-xs py-2.5 bg-red-600 text-white hover:bg-green-500 transition-all rounded">
-                Logout
-              </button>
+              
             </div>
           </div>
 
