@@ -272,7 +272,13 @@ function Assembly() {
   );
 }
 
-export default function Gear3D() {
+interface Gear3DProps {
+  onReady?: () => void;
+}
+
+export default function Gear3D({
+  onReady,
+}: Gear3DProps) {
   return (
     <Canvas
       camera={{
@@ -283,9 +289,9 @@ export default function Gear3D() {
         antialias: true,
         alpha: true,
       }}
-      onCreated={({ gl }) =>
-        gl.setClearColor(0x000000, 0)
-      }
+      onCreated={() => {
+    onReady?.();
+  }}
       style={{
         background: "transparent",
       }}

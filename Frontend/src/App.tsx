@@ -1,19 +1,40 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import type{ ReactNode } from "react";
 
 import Navbar from "./components/layout/Navbar";
-import Hero from "./components/Home";
-import About from "./components/About";
-import Services from "./components/Services";
-import Gallery from "./components/Gallery";
-import Stats from "./components/Stats";
-import Contact from "./components/Contact";
+import Hero from "./components/pages/Home";
+import About from "./components/pages/About";
+import Services from "./components/pages/Services";
+import Gallery from "./components/pages/Gallery";
+import Stats from "./components/pages/Stats";
+import Contact from "./components/pages/Contact";
 import Footer from "./components/layout/Footer";
 import BackgroundEffects from "./components/BackgroundEffects";
-import Invoice from "./components/Invoice";
-
+import Invoice from "./components/pages/Invoice";
 import Login from "./components/pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { useAuth } from "./context/AuthContext";
+
+function AuthGate({ children }: { children: ReactNode }) {
+  const { loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#0f0f0f]">
+        <div className="relative w-14 h-14">
+          <div className="absolute inset-0 rounded-full border-2 border-amber-400/10" />
+          <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-amber-400 animate-spin" />
+        </div>
+        <p className="mt-5 mono text-xs tracking-widest text-amber-400/70 uppercase animate-pulse">
+          Verifying access…
+        </p>
+      </div>
+    );
+  }
+
+  return <>{children}</>;
+}
 
 function ScrollToHash() {
   const location = useLocation();
@@ -57,7 +78,7 @@ const App = () => {
   return (
     <div className="relative min-h-screen overflow-x-hidden text-white">
       <BackgroundEffects />
-
+        <AuthGate> 
       <Navbar />
 
       <ScrollToHash />
@@ -80,6 +101,7 @@ const App = () => {
       </main>
 
       <Footer />
+      </AuthGate>
     </div>
   );
 };

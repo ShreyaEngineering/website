@@ -1,8 +1,10 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
+import { logoutApi } from "../../../api/authApi";
+import { useAuth } from "../../context/AuthContext";
 
 interface LinkItem {
   id: string;
@@ -19,12 +21,27 @@ const links: readonly LinkItem[] = [
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  const navigate = useNavigate();
+
+  const { authenticated, checkAuth } = useAuth();
+
   const handleCloseMenu = (): void => {
     setIsOpen(false);
   };
 
   const toggleMenu = (): void => {
     setIsOpen((prev) => !prev);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logoutApi();
+      await checkAuth();
+      navigate("/login");
+      setIsOpen(false);
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
   };
 
   return (
@@ -36,7 +53,6 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
-       
         <Link
           to="/"
           className="text-xl font-bold tracking-wide text-amber-400"
@@ -46,31 +62,51 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-7">
-          {links.map((link) => (
-            <HashLink
-              key={link.id}
-              smooth
-              to={`/#${link.id}`}
-              className="text-sm text-slate-200/90 hover:text-cyan-300 transition-colors duration-300"
-            >
-              {link.label}
-            </HashLink>
-          ))}
+          {!authenticated ? (
+            <>
+              {links.map((link) => (
+                <HashLink
+                  key={link.id}
+                  smooth
+                  to={`/#${link.id}`}
+                  className="text-sm text-slate-200/90 hover:text-cyan-300 transition-colors duration-300"
+                >
+                  {link.label}
+                </HashLink>
+              ))}
 
-          <Link
-            to="/invoice"
-            className="text-sm  text-cyan-300 hover:text-red-600 transition-colors duration-300"
-          >
-            Admin Login
-          </Link>
+              <Link
+                to="/invoice"
+                className="text-sm text-cyan-300 hover:text-red-600 transition-colors duration-300"
+              >
+                Admin Login
+              </Link>
 
-          <HashLink
-            smooth
-            to="/#contact"
-            className="px-5 py-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-600 text-white font-semibold text-sm hover:scale-105 transition-transform"
-          >
-            Contact Now
-          </HashLink>
+              <HashLink
+                smooth
+                to="/#contact"
+                className="px-5 py-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-600 text-white font-semibold text-sm hover:scale-105 transition-transform"
+              >
+                Contact Now
+              </HashLink>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/"
+                className="text-sm text-slate-200/90 hover:text-cyan-300 transition-colors duration-300"
+              >
+                Home
+              </Link>
+
+              <button
+                onClick={handleLogout}
+                className="px-5 py-2 rounded-full bg-red-600 text-white font-semibold text-sm hover:bg-red-700 transition-all"
+              >
+                Logout
+              </button>
+            </>
+          )}
         </div>
 
         {/* Mobile Toggle */}
@@ -98,34 +134,64 @@ const Navbar = () => {
             className="md:hidden overflow-hidden bg-slate-950/95 px-6 pb-5"
           >
             <div className="space-y-4">
-              {links.map((link) => (
-                <HashLink
-                  key={link.id}
-                  smooth
-                  to={`/#${link.id}`}
-                  className="block text-slate-200/90 hover:text-cyan-300 transition-colors"
-                  onClick={handleCloseMenu}
-                >
-                  {link.label}
-                </HashLink>
-              ))}
+              {!authenticated ? (
+                <>
+                  {links.map((link) => (
+                    <HashLink
+                      key={link.id}
+                      smooth
+                      to={`/#${link.id}`}
+                      className="block text-slate-200/90 hover:text-cyan-300 transition-colors"
+                      onClick={handleCloseMenu}
+                    >
+                      {link.label}
+                    </HashLink>
+                  ))}
 
-              <Link
-                to="/invoice"
-                onClick={handleCloseMenu}
-                className="block text-cyan-300 hover:text-red-600 transition-colors"
-              >
-                Admin Login
-              </Link>
+                  <Link
+                    to="/invoice"
+                    onClick={handleCloseMenu}
+                    className="block text-cyan-300 hover:text-red-600 transition-colors"
+                  >
+                    Admin Login
+                  </Link>
 
-              <HashLink
-                smooth
-                to="/#contact"
-                onClick={handleCloseMenu}
-                className="inline-block mt-2 px-5 py-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-600 text-white font-semibold text-sm"
-              >
-                Contact Now
-              </HashLink>
+                  <HashLink
+                    smooth
+                    to="/#contact"
+                    onClick={handleCloseMenu}
+                    className="inline-block mt-2 px-5 py-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-600 text-white font-semibold text-sm"
+                  >
+                    Contact Now
+                  </HashLink>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/"
+                    onClick={handleCloseMenu}
+                    className="block text-slate-200 hover:text-cyan-300 transition-colors"
+                  >
+                    Home
+                  </Link>
+
+                  <Link
+                    to="/invoice"
+                    onClick={handleCloseMenu}
+                    className="block text-cyan-300 hover:text-red-600 transition-colors"
+                  >
+                    Invoice
+                  </Link>
+
+                  <button
+                    onClick={handleLogout}
+                    className="group relative inline-flex items-center text-red-400 hover:text-red-300 font-medium transition-colors duration-300"
+                  >
+                    Logout
+                    <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-red-400 transition-all duration-300 group-hover:w-full" />
+                  </button>
+                </>
+              )}
             </div>
           </motion.div>
         )}

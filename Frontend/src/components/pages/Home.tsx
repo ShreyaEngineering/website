@@ -1,8 +1,13 @@
 import { motion } from "framer-motion";
-import Gear3D from "./Gear3D";
-import MagneticButton from "./MagneticButton";
+import { useState } from "react";
+import Gear3D from "../Gear3D";
+import MagneticButton from "../MagneticButton";
+
 
 const Hero = () => {
+
+  const [gearLoaded, setGearLoaded] = useState(false);
+
   return (
     <section
       id="hero"
@@ -79,7 +84,44 @@ const Hero = () => {
       </motion.div>
 
       <div className="w-full sm:w-[360px] md:w-[430px] h-[280px] sm:h-[340px] md:h-[430px] rounded-3xl overflow-hidden flex-none">
-        <Gear3D />
+        <div className="relative w-full h-full">
+
+       {!gearLoaded && (
+  <div className="absolute inset-0 flex flex-col items-center justify-center overflow-hidden">
+    
+    {/* Rotating outer ring */}
+    <div className="relative">
+      <div className="w-32 h-32 rounded-full border border-cyan-500/20" />
+
+      <div className="absolute inset-0 w-32 h-32 rounded-full border-t-2 border-cyan-400 animate-[spin_4s_linear_infinite]" />
+
+      <div className="absolute inset-4 w-24 h-24 rounded-full border border-cyan-400/30 animate-pulse" />
+
+      <div className="absolute inset-0 flex items-center justify-center">
+        <span className="text-4xl text-cyan-400">
+          ⚙
+        </span>
+      </div>
+    </div>
+
+    {/* Status text */}
+    <div className="mt-8 text-center">
+      <p className="text-cyan-400 font-mono tracking-[0.25em] text-xs uppercase">
+        Initializing Engineering System
+      </p>
+
+      <div className="mt-4 flex items-center gap-2">
+        <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+        <span className="text-slate-400 text-xs font-mono">
+          Loading Gear Assembly...
+        </span>
+      </div>
+    </div>
+  </div>
+)}
+
+          <Gear3D onReady={() => setGearLoaded(true)} />
+        </div>
       </div>
     </section>
   );

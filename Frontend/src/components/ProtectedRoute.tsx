@@ -6,14 +6,8 @@ interface Props {
   children: ReactNode;
 }
 
-export default function ProtectedRoute({
-  children,
-}: Props) {
-  const { authenticated, loading } = useAuth();
-
-  if (loading) {
-    return <h2>Loading...</h2>;
-  }
+export default function ProtectedRoute({ children }: Props) {
+  const { authenticated } = useAuth();   // loading already handled by AuthGate
 
   if (!authenticated) {
     return <Navigate to="/login" />;

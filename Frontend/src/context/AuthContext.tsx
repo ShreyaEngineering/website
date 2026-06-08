@@ -28,6 +28,7 @@ export function AuthProvider({
 
   const checkAuth = async () => {
     try {
+      setLoading(true);  
       await meApi();
       setAuthenticated(true);
     } catch {
