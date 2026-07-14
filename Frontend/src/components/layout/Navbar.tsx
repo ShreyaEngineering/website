@@ -49,19 +49,21 @@ const Navbar = () => {
       initial={{ y: -80 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className="fixed top-0 left-0 w-full border-b border-white/10 bg-slate-950/60 backdrop-blur-xl z-50"
+      className="fixed left-0 top-0 z-50 w-full bg-[#0B0B0C]"
     >
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        {/* Logo */}
-        <Link
-          to="/"
-          className="text-xl font-bold tracking-wide text-amber-400"
-        >
-          Shreya Engineering Works
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        {/* Logo — stamped equipment-tag style */}
+        <Link to="/" className="flex items-center gap-3">
+          <span className="flex h-9 w-9 items-center justify-center border-2 border-[#F4B400] font-mono text-sm font-bold text-[#F4B400]">
+            SEW
+          </span>
+          <span className="font-[Oswald,_sans-serif] text-base font-semibold uppercase tracking-[0.15em] text-[#EDEDED]">
+            Shreya Engineering Works
+          </span>
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-7">
+        <div className="hidden items-center gap-8 md:flex">
           {!authenticated ? (
             <>
               {links.map((link) => (
@@ -69,23 +71,24 @@ const Navbar = () => {
                   key={link.id}
                   smooth
                   to={`/#${link.id}`}
-                  className="text-sm text-slate-200/90 hover:text-cyan-300 transition-colors duration-300"
+                  className="group relative font-mono text-xs font-medium uppercase tracking-[0.2em] text-[#9A9A9E] transition-colors duration-200 hover:text-[#EDEDED]"
                 >
                   {link.label}
+                  <span className="absolute -bottom-1.5 left-0 h-[2px] w-0 bg-[#F4B400] transition-all duration-200 group-hover:w-full" />
                 </HashLink>
               ))}
 
               <Link
                 to="/invoice"
-                className="text-sm text-cyan-300 hover:text-red-600 transition-colors duration-300"
+                className="border border-[#3A3A3D] px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.15em] text-[#7A7A7E] transition-colors duration-200 hover:border-[#F4B400] hover:text-[#F4B400]"
               >
-                Admin Login
+                Admin
               </Link>
 
               <HashLink
                 smooth
                 to="/#contact"
-                className="px-5 py-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-600 text-white font-semibold text-sm hover:scale-105 transition-transform"
+                className="relative bg-[#F4B400] px-5 py-2 font-mono text-xs font-bold uppercase tracking-[0.15em] text-[#0B0B0C] transition-transform duration-200 hover:-translate-y-0.5"
               >
                 Contact Now
               </HashLink>
@@ -94,7 +97,7 @@ const Navbar = () => {
             <>
               <Link
                 to="/"
-                className="text-sm text-slate-200/90 hover:text-cyan-300 transition-colors duration-300"
+                className="font-mono text-xs font-medium uppercase tracking-[0.2em] text-[#9A9A9E] transition-colors duration-200 hover:text-[#EDEDED]"
               >
                 Home
               </Link>
@@ -102,17 +105,17 @@ const Navbar = () => {
               <Link
                 to="/invoice"
                 onClick={handleCloseMenu}
-                className="block text-cyan-300 hover:text-red-600 transition-colors"
+                className="border border-[#3A3A3D] px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.15em] text-[#7A7A7E] transition-colors duration-200 hover:border-[#F4B400] hover:text-[#F4B400]"
               >
                 Invoice
               </Link>
 
               <button
                 onClick={handleLogout}
-                className="group relative inline-flex items-center text-red-400 hover:text-red-300 font-medium transition-colors duration-300"
+                className="group relative font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#D9483A] transition-colors duration-200 hover:text-[#E8695D]"
               >
                 Logout
-                <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-red-400 transition-all duration-300 group-hover:w-full" />
+                <span className="absolute -bottom-1.5 left-0 h-[2px] w-0 bg-[#D9483A] transition-all duration-200 group-hover:w-full" />
               </button>
             </>
           )}
@@ -122,7 +125,7 @@ const Navbar = () => {
         <button
           type="button"
           onClick={toggleMenu}
-          className="md:hidden p-2 rounded-lg border border-white/20"
+          className="border-2 border-[#3A3A3D] p-2 text-[#EDEDED] md:hidden"
           aria-label="Toggle menu"
           aria-expanded={isOpen}
           aria-controls="mobile-menu"
@@ -140,9 +143,9 @@ const Navbar = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden overflow-hidden bg-slate-950/95 px-6 pb-5"
+            className="overflow-hidden bg-[#0B0B0C] px-6 pb-6 md:hidden"
           >
-            <div className="space-y-4">
+            <div className="space-y-5 border-t border-[#232326] pt-5">
               {!authenticated ? (
                 <>
                   {links.map((link) => (
@@ -150,7 +153,7 @@ const Navbar = () => {
                       key={link.id}
                       smooth
                       to={`/#${link.id}`}
-                      className="block text-slate-200/90 hover:text-cyan-300 transition-colors"
+                      className="block font-mono text-xs font-medium uppercase tracking-[0.2em] text-[#9A9A9E] transition-colors hover:text-[#EDEDED]"
                       onClick={handleCloseMenu}
                     >
                       {link.label}
@@ -160,7 +163,7 @@ const Navbar = () => {
                   <Link
                     to="/invoice"
                     onClick={handleCloseMenu}
-                    className="block text-cyan-300 hover:text-red-600 transition-colors"
+                    className="block font-mono text-xs uppercase tracking-[0.15em] text-[#7A7A7E] transition-colors hover:text-[#F4B400]"
                   >
                     Admin Login
                   </Link>
@@ -169,7 +172,7 @@ const Navbar = () => {
                     smooth
                     to="/#contact"
                     onClick={handleCloseMenu}
-                    className="inline-block mt-2 px-5 py-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-600 text-white font-semibold text-sm"
+                    className="inline-block bg-[#F4B400] px-5 py-2 font-mono text-xs font-bold uppercase tracking-[0.15em] text-[#0B0B0C]"
                   >
                     Contact Now
                   </HashLink>
@@ -179,7 +182,7 @@ const Navbar = () => {
                   <Link
                     to="/"
                     onClick={handleCloseMenu}
-                    className="block text-slate-200 hover:text-cyan-300 transition-colors"
+                    className="block font-mono text-xs uppercase tracking-[0.2em] text-[#9A9A9E] transition-colors hover:text-[#EDEDED]"
                   >
                     Home
                   </Link>
@@ -187,17 +190,16 @@ const Navbar = () => {
                   <Link
                     to="/invoice"
                     onClick={handleCloseMenu}
-                    className="block text-cyan-300 hover:text-red-600 transition-colors"
+                    className="block font-mono text-xs uppercase tracking-[0.15em] text-[#7A7A7E] transition-colors hover:text-[#F4B400]"
                   >
                     Invoice
                   </Link>
 
                   <button
                     onClick={handleLogout}
-                    className="group relative inline-flex items-center text-red-400 hover:text-red-300 font-medium transition-colors duration-300"
+                    className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#D9483A] transition-colors hover:text-[#E8695D]"
                   >
                     Logout
-                    <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-red-400 transition-all duration-300 group-hover:w-full" />
                   </button>
                 </>
               )}
@@ -205,6 +207,15 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Hazard stripe — the navbar's signature element, a nod to safety tape on a shop floor */}
+      <div
+        className="h-[3px] w-full"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(135deg, #F4B400 0px, #F4B400 14px, #0B0B0C 14px, #0B0B0C 28px)",
+        }}
+      />
     </motion.nav>
   );
 };

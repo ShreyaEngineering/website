@@ -1,6 +1,8 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import type { ReactNode } from "react";
+
+import GuestRoute from "./components/GuestRoute";
 
 import Navbar from "./components/layout/Navbar";
 import Hero from "./components/pages/Home";
@@ -15,7 +17,7 @@ import Invoice from "./components/pages/Invoice";
 import Login from "./components/pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuth } from "./context/AuthContext";
-import IntroScreen from "./components/IntroScreen";
+
 
 function AuthGate({ children }: { children: ReactNode }) {
   const { loading } = useAuth();
@@ -77,16 +79,6 @@ function HomePage() {
 
 const App = () => {
 
-  const [entered, setEntered] = useState(false);
-
-  if (!entered) {
-    return (
-      <IntroScreen
-        onFinish={() => setEntered(true)}
-      />
-    );
-  }
-
   return (
     <div className="relative min-h-screen overflow-x-hidden text-white">
       <BackgroundEffects />
@@ -99,7 +91,14 @@ const App = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
 
-            <Route path="/login" element={<Login />} />
+            <Route
+              path="/login"
+              element={
+                <GuestRoute>
+                  <Login />
+                </GuestRoute>
+              }
+            />
 
             <Route
               path="/invoice"
