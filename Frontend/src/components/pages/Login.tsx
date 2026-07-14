@@ -46,7 +46,7 @@ export default function Login() {
           <form onSubmit={handleSubmit} className="p-6 sm:p-8">
             <div className="mb-7 flex flex-col items-center text-center sm:mb-8">
               <span className="flex h-11 w-11 items-center justify-center border-2 border-[#F4B400] font-mono text-sm font-bold text-[#F4B400]">
-                SE
+                SEW
               </span>
 
               <h1 className="mt-4 font-mono text-xl font-semibold uppercase tracking-[0.15em] text-[#EDEDED] sm:text-2xl">

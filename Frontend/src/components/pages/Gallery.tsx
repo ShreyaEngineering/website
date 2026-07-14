@@ -6,7 +6,7 @@ interface GalleryImage {
 }
 
 const galleryModules = import.meta.glob<string>(
-  "/images/gallery/*.{png,jpg,jpeg,webp,avif}",
+  "/public/images/gallery/*.{png,jpg,jpeg,webp,avif}",
   {
     eager: true,
     query: "?url",

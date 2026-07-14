@@ -1,6 +1,5 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import type { ReactNode } from "react";
 
 import GuestRoute from "./components/GuestRoute";
 
@@ -16,28 +15,6 @@ import BackgroundEffects from "./components/BackgroundEffects";
 import Invoice from "./components/pages/Invoice";
 import Login from "./components/pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { useAuth } from "./context/AuthContext";
-
-
-function AuthGate({ children }: { children: ReactNode }) {
-  const { loading } = useAuth();
-
-  if (loading) {
-    return (
-      <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#0f0f0f]">
-        <div className="relative w-14 h-14">
-          <div className="absolute inset-0 rounded-full border-2 border-amber-400/10" />
-          <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-amber-400 animate-spin" />
-        </div>
-        <p className="mt-5 mono text-xs tracking-widest text-amber-400/70 uppercase animate-pulse">
-          Verifying access…
-        </p>
-      </div>
-    );
-  }
-
-  return <>{children}</>;
-}
 
 function ScrollToHash() {
   const location = useLocation();
@@ -78,41 +55,39 @@ function HomePage() {
 }
 
 const App = () => {
-
   return (
     <div className="relative min-h-screen overflow-x-hidden text-white">
       <BackgroundEffects />
-      <AuthGate>
-        <Navbar />
 
-        <ScrollToHash />
+      <Navbar />
 
-        <main className="relative z-10">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
+      <ScrollToHash />
 
-            <Route
-              path="/login"
-              element={
-                <GuestRoute>
-                  <Login />
-                </GuestRoute>
-              }
-            />
+      <main className="relative z-10">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
 
-            <Route
-              path="/invoice"
-              element={
-                <ProtectedRoute>
-                  <Invoice />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
-        </main>
+          <Route
+            path="/login"
+            element={
+              <GuestRoute>
+                <Login />
+              </GuestRoute>
+            }
+          />
 
-        <Footer />
-      </AuthGate>
+          <Route
+            path="/invoice"
+            element={
+              <ProtectedRoute>
+                <Invoice />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </main>
+
+      <Footer />
     </div>
   );
 };
